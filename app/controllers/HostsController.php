@@ -65,7 +65,7 @@ class HostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return 'hi';
 	}
 
 
@@ -101,7 +101,9 @@ class HostsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$host = $this->hostRepository->find($id);
+
+		return $host;
 	}
 
 

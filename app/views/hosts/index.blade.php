@@ -19,7 +19,10 @@
 						<ul class="options-menu">
 							<li class="options-items">{{ link_to('disable', 'Disable') }}</li>
 							<li class="options-items">{{ link_to('edit', 'Edit') }}</li>
-							<li class="options-items">{{ link_to('delete', 'Delete') }}</li>
+							{{ Form::open(array('route' => array('hosts.destroy', $host->id), 'method' => 'delete')) }}
+								<li class="options-items">{{ link_to_route('hosts.destroy', 'Delete') }}</li>
+							{{ Form::close() }}
+								
 						</ul><!-- end options-menu -->
 					</div><!-- end edit -->
 				</li>
