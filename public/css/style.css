@@ -1,0 +1,42 @@
+/*
+-------------------------------------------------------------------------------
+General styling
+-------------------------------------------------------------------------------
+*/
+
+.container {
+	margin-top: 20px;
+}
+
+.options-menu {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+.options-items {
+	display: inline;
+	margin-left: 10px;
+}
+
+.form-send {
+	position: absolute;
+	bottom: 0px;
+	right: 15px;
+	padding: 10px 30px;
+}
+
+/*
+-------------------------------------------------------------------------------
+Typography
+-------------------------------------------------------------------------------
+*/
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.section-title {
+	font-size: 26px;
+}
+ 
