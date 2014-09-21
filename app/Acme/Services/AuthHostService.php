@@ -38,7 +38,10 @@ class AuthHostService
 
 	public function changeState($id)
 	{
-		
+		$host = $this->hostRepository->find($id);
+
+		if (! $host) throw new NonExistentHostException;
+
 	}
 
 }
