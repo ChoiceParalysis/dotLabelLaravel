@@ -3,6 +3,7 @@
 use Acme\Repositories\AllowedHostsRepository\HostsRepositoryInterface;
 use Acme\Services\HostCreatorService;
 use Acme\Validators\HostValidationException;
+use Acme\Exceptions\NonExistentHostException;
 
 class HostsController extends \BaseController {
 
@@ -47,13 +48,17 @@ class HostsController extends \BaseController {
 	public function store()
 	{
 		try {
-			$this->hostCreator->create(Input::all());
+			AuthHost::create(Input::all());
+
+			// 
 		}
 
 		catch(HostValidationException $e)
 		{
 			return Redirect::back()->withInput()->withErrors($e->getErrors());
 		}
+
+		return Redirect::home();
 	}
 
 
@@ -104,6 +109,19 @@ class HostsController extends \BaseController {
 		$host = $this->hostRepository->find($id);
 
 		return $host;
+	}
+
+	public function changeState($id)
+	{
+		try {
+			return AuthHost::changeState($id);
+		}
+
+		catch(NonExistentHostException $e)
+		{
+			dd('exception');
+		}
+
 	}
 
 

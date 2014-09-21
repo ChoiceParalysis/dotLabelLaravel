@@ -8,19 +8,19 @@
 <div class="form-group">
 	{{ Form::label('ipaddress', 'IP Address:') }}
 	{{ Form::text('ipaddress', null, ['class' => 'form-control']) }}
-	{{ $errors->first('ipaddress', ':message') }}
+	{{ $errors->first('ipaddress', '<div class="error">:message</div>') }}
 </div><!-- end form-group -->
 
 <div class="form-group">
 	{{ Form::label('subnet', 'Subnet:') }}
 	{{ Form::text('subnet', null, ['class' => 'form-control']) }}
-	{{ $errors->first('subnet') }}
+	{{ $errors->first('subnet', '<div class="error">:message</div>') }}
 </div><!-- end form-group -->
 	
 <div class="form-group">
 	{{ Form::label('description', 'Description:') }}
 	{{ Form::textarea('description', null, ['class' => 'form-control']) }}
-	{{ $errors->first('description') }}
+	{{ $errors->first('description', '<div class="error">:message</div>') }}
 </div><!-- end form-group -->
 
 <div class="form-group">

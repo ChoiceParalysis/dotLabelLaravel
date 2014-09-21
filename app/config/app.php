@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Acme\Repositories\AllowedHostsRepository\HostsRepositoryServiceProvider'
+		'Acme\Repositories\AllowedHostsRepository\HostsRepositoryServiceProvider',
+		'Acme\ServiceProviders\AuthHostServiceProvider'
 
 	),
 
@@ -189,6 +190,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+		'AuthHost'			=> 'Acme\Facades\AuthHost'
 
 	),
 

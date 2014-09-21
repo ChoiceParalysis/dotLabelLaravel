@@ -26,6 +26,10 @@ General styling
 	padding: 10px 30px;
 }
 
+.list-group-item[data-status="1"] {
+	background: #C8F7C5;
+}
+
 /*
 -------------------------------------------------------------------------------
 Typography
@@ -40,3 +44,6 @@ body {
 	font-size: 26px;
 }
  
+.error {
+	color: #F9690E;
+}
