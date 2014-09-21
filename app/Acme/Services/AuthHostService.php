@@ -23,14 +23,13 @@ class AuthHostService
 
 		if($this->validator->isValid($attributes))
 		{
-			Host::create([
+			return Host::create([
 				'ipaddress' => $attributes['ipaddress'],
 				'subnet' => $attributes['subnet'],
 				'description' => $attributes['description'],
 				'enabled' => isset($attributes['enabled']) ?: 0
 			]);
 
-			return true;
 		}
 
 		throw new HostValidationException('Host Validation failed', $this->validator->getErrors());

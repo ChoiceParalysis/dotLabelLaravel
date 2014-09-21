@@ -1,21 +1,29 @@
-$(document).ready(function() {
+function HostsController($scope, $http) {
 
-	function postLink() {
-		$('.post-link').on('click', function(e) {
+	$http.get('/hosts').success(function(hosts) {
+		$scope.hosts = hosts;
+	});
 
-			$hostId = $(this).parent().data('hostid');
+	$scope.addHost = function() {
+		
+		var host = {
+			ipaddress: $scope.ipaddress,
+			subnet: $scope.subnet,
+			description: $scope.desc,
+			enabled: $scope.enabled
+		};
 
-			$.ajax({
-		    	type: "POST",
-				url: 'hosts/' + $hostId + '/change-state',
-				success: function(data) {
-					console.log(data);
-				}
-		  	});
+		$http.post('/hosts', host)
+			.error(function(response) {
+				console.log(response);
+				$scope.errors = response;
+			})
+			.success(function(response){
+				$scope.errors = null;
+				$scope.hosts.unshift(host);
+			});	
 
-		e.preventDefault();
-		});
-	}
+			
+	};
 
-	postLink();
-});
+}

@@ -25,18 +25,9 @@ class HostsController extends \BaseController {
 	{
 		$hosts = $this->hostRepository->all();
 
-		return View::make('hosts.index', compact('hosts'));
-	}
+		return $hosts;
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+		//return View::make('hosts.index', compact('hosts'));
 	}
 
 
@@ -49,16 +40,14 @@ class HostsController extends \BaseController {
 	{
 		try {
 			AuthHost::create(Input::all());
-
-			// 
+			
+			return Response::json(['success' => 'Added successfully.']);
 		}
 
 		catch(HostValidationException $e)
 		{
-			return Redirect::back()->withInput()->withErrors($e->getErrors());
+			return Response::json($e->getErrors(), 408);
 		}
-
-		return Redirect::home();
 	}
 
 

@@ -6,7 +6,7 @@ class DbHostsRepository implements HostsRepositoryInterface
 {
 	public function all()
 	{
-		$hosts = Host::all();
+		$hosts = Host::orderBy('id', 'DESC')->get();
 
 		return $hosts;
 	}

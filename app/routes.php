@@ -1,10 +1,16 @@
 <?php
 
-Route::get('hosts', ['as' => 'home', 'uses' => 'HostsController@index']);
+Route::get('/', 'PagesController@index');
+
+Route::get('hosts', 'HostsController@index');
+
+Route::post('hosts', 'HostsController@store');
+
+//Route::get('hosts', ['as' => 'home', 'uses' => 'HostsController@index']);
 
 Route::post('hosts/{id}/change-state', 'HostsController@changeState');
 
-Route::post('hosts', 'HostsController@store');
+
 
 Route::get('/hosts', 'HostsController@index');
 
