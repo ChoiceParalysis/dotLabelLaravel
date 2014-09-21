@@ -1,9 +1,10 @@
 <?php namespace Acme\Services;
 
-use Acme\Repositories\AllowedHostsRepository\HostsRepositoryInterface;
-use Acme\Validators\HostValidationException;
-use Acme\Validators\AuthorisedHostValidator;
 use Host;
+use Acme\Repositories\AllowedHostsRepository\HostsRepositoryInterface;
+use Acme\Validators\AuthorisedHostValidator;
+use Acme\Validators\HostValidationException;
+use Acme\Exceptions\NonExistentHostException;
 
 class AuthHostService 
 {
@@ -40,7 +41,13 @@ class AuthHostService
 	{
 		$host = $this->hostRepository->find($id);
 
-		if (! $host) throw new NonExistentHostException;
+		if (! $host) throw new NonExistentHostException('Host does not exist.');
+
+		$host->enabled = ($host->enabled) ? 0 : 1;
+
+		$host->save();
+
+		return $host;
 
 	}
 

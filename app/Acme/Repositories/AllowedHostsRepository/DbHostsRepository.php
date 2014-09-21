@@ -14,7 +14,7 @@ class DbHostsRepository implements HostsRepositoryInterface
 
 	public function find($id)
 	{
-		$host = Host::find($id)->firstOrFail();
+		$host = Host::find($id);
 
 		return $host;
 	}
