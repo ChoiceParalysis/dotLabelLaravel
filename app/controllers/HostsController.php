@@ -63,7 +63,6 @@ class HostsController extends \BaseController {
 		try 
 		{
 			return AuthHost::update($id, Input::all());
-			//return AuthHost::changeState($id);
 		}
 
 		catch(NonExistentHostException $e)
@@ -84,19 +83,6 @@ class HostsController extends \BaseController {
 		$host = $this->hostRepository->find($id);
 
 		return $host;
-	}
-
-	public function changeState($id)
-	{
-		try {
-			return AuthHost::changeState($id);
-		}
-
-		catch(NonExistentHostException $e)
-		{
-			dd('exception');
-		}
-
 	}
 
 

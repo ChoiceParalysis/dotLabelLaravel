@@ -25,11 +25,11 @@
 			
 			<ul class="options">
 				<li class="options-item" ng-if="host.enabled">
-					<a class="option-link" ng-click="update(host)">Disable</a>
+					<a class="option-link" ng-click="updateStatus(host)">Disable</a>
 				</li>
 
 				<li class="options-item" ng-if="! host.enabled">
-					<a class="option-link" ng-click="update(host)">Enable</a>
+					<a class="option-link" ng-click="updateStatus(host)">Enable</a>
 				</li>
 
 				<li class="options-item" >

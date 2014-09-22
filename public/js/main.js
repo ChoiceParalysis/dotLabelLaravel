@@ -71,11 +71,13 @@ function HostsController($scope, $http) {
 	};	
 
 
-	$scope.update = function(host) {
+	$scope.updateStatus = function(host) {
+
+		host.enabled = host.enabled ? false : true;
 
 		var hostID = host.id;
 
-		$http({method: 'PATCH', url: '/hosts/' + hostID + '/update'})
+		$http.post('/hosts/' + hostID + '/update', host)
 			.success(function(response) {
 			
 				$scope.hosts[$scope.hosts.length - hostID] = response;
