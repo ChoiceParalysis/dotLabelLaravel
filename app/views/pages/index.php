@@ -2,7 +2,7 @@
 <html lang="en" ng-app>
 <head>
 	<meta charset="UTF-8">
-	<!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'> -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/style.css">
 	<title>Authorised Hosts Administration app</title>
@@ -33,7 +33,7 @@
 				</li>
 
 				<li class="options-item" >
-					<a class="option-link" ng-click="edit(host)">Edit</a>
+					<a class="option-link" ng-click="showEditForm(host)">Edit</a>
 				</li>
 
 				<li class="options-item">
@@ -46,38 +46,7 @@
 
 <div class="col-md-6">
 
-	<h2 class="section-title">Add new Host</h2>
-
-	<form ng-submit="addHost()">
-		<div class="form-group">
-			<label for="ipaddress">IP Address:</label>
-			<input type="text" id="ipaddress" class="form-control" ng-model="processedHost.ipaddress">
-			<div class="error">{{ errors.ipaddress[0] }}</div><!-- end error -->
-		</div><!-- end form-group -->
-
-		<div class="form-group">
-			<label for="subnet">Subnet:</label>
-			<input type="text" id="subnet" class="form-control" ng-model="processedHost.subnet">
-			<div class="error">{{ errors.subnet[0] }}</div><!-- end error -->
-		</div><!-- end form-group -->
-
-		<div class="form-group">
-			<label for="desc">Description:</label>
-			<textarea name="desc" class="form-control" ng-model="processedHost.desc"></textarea>
-			<div class="error">{{ errors.description[0] }}</div><!-- end error -->
-		</div><!-- end form-group -->
-
-		<div class="form-group">
-			<label for="enabled">Enabled:</label>
-			<input type="checkbox" id="enabled" ng-model="processedHost.enabled">
-		</div><!-- end form-group -->
-
-		<div class="form-group">
-			<input type="submit" class="btn btn-primary" value="Add Host">
-		</div><!-- end form-group -->
-	</form>
-
-	{{ edit }}
+	<div ng-include="template.url"></div>
 
 </div>
 

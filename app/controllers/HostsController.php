@@ -39,9 +39,10 @@ class HostsController extends \BaseController {
 	public function store()
 	{
 		try {
-			AuthHost::create(Input::all());
+
+			return AuthHost::create(Input::all());
 			
-			return Response::json(['success' => 'Added successfully.']);
+			// return Response::json(['success' => 'Added successfully.']);
 		}
 
 		catch(HostValidationException $e)
