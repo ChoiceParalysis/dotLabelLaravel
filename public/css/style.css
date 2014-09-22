@@ -26,8 +26,12 @@ General styling
 	padding: 10px 30px;
 }
 
-.list-group-item[data-state="true"] {
+.list-group-item[data-enabled="true"] {
 	background: #C8F7C5;
+}
+
+.overflow-fix {
+	overflow: hidden;
 }
 
 .hosts {
@@ -55,7 +59,7 @@ body {
 }
  
 .error {
-	color: #F9690E;
+	color: #CF000F;
 }
 
 .option-link {

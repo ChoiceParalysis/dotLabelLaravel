@@ -8,10 +8,10 @@ function HostsController($scope, $http) {
 		
 		var host = {
 			id: $scope.hosts.length + 1,
-			ipaddress: $scope.ipaddress,
-			subnet: $scope.subnet,
-			description: $scope.desc,
-			enabled: $scope.enabled
+			ipaddress: $scope.processedHost.ipaddress,
+			subnet: $scope.processedHost.subnet,
+			description: $scope.processedHost.desc,
+			enabled: $scope.processedHost.enabled
 		};
 
 		$http.post('/hosts', host)
@@ -28,11 +28,17 @@ function HostsController($scope, $http) {
 			});	
 	};
 
+
+	$scope.edit = function(host) {
+
+		$scope.processedHost = host;
+
+	};
+
+
 	$scope.update = function(host) {
 
 		var hostID = host.id;
-
-		$scope.edit = 1234;
 
 		$http({method: 'PATCH', url: '/hosts/' + hostID + '/update'})
 			.success(function(response) {
