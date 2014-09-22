@@ -52,30 +52,6 @@ class HostsController extends \BaseController {
 
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		return 'hi';
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
@@ -83,7 +59,17 @@ class HostsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		try 
+		{
+			AuthHost::changeState($id);
+
+			return Response::json(['success' => 'Updated successfully.']);
+		}
+
+		catch(NonExistentHostException $e)
+		{
+			return $e->getErrors();
+		}
 	}
 
 

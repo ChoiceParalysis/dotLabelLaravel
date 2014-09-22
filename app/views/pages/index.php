@@ -15,9 +15,26 @@
 	<h2 class="section-title">Allowed Hosts</h2>
 
 	<ul class="list-group">
-		<li  class="list-group-item" ng-repeat="host in hosts">
-			{{ host.ipaddress }} 
-			<input type="checkbox" ng-model="host.enabled">
+		<li  class="list-group-item" ng-repeat="host in hosts" data-state="{{ host.enabled }}">
+			{{ host.ipaddress }} / {{ host.subnet }}
+			
+			<ul class="options">
+				<li class="options-item" ng-if="host.enabled">
+					<a class="option-link" ng-click="update(host)">Disable</a>
+				</li>
+
+				<li class="options-item" ng-if="! host.enabled">
+					<a class="option-link" ng-click="update(host)">Enable</a>
+				</li>
+
+				<li class="options-item" >
+					<a href="edit">Edit</a>
+				</li>
+
+				<li class="options-item">
+					<a href="delete">Delete</a>
+				</li>
+			</ul>
 		</li>
 	</ul>
 </div>

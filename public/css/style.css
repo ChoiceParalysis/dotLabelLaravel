@@ -8,13 +8,13 @@ General styling
 	margin-top: 20px;
 }
 
-.options-menu {
+.options {
 	position: absolute;
 	right: 10px;
 	top: 10px;
 }
 
-.options-items {
+.options-item {
 	display: inline;
 	margin-left: 10px;
 }
@@ -26,7 +26,7 @@ General styling
 	padding: 10px 30px;
 }
 
-.list-group-item[data-status="1"] {
+.list-group-item[data-state="true"] {
 	background: #C8F7C5;
 }
 
@@ -46,4 +46,8 @@ body {
  
 .error {
 	color: #F9690E;
+}
+
+.option-link {
+	cursor: pointer;
 }

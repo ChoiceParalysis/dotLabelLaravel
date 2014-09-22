@@ -6,6 +6,8 @@ Route::get('hosts', 'HostsController@index');
 
 Route::post('hosts', 'HostsController@store');
 
+Route::patch('hosts/{id}/update', 'HostsController@update');
+
 //Route::get('hosts', ['as' => 'home', 'uses' => 'HostsController@index']);
 
 Route::post('hosts/{id}/change-state', 'HostsController@changeState');

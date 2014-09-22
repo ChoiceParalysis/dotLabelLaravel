@@ -7,6 +7,7 @@ function HostsController($scope, $http) {
 	$scope.addHost = function() {
 		
 		var host = {
+			id: $scope.hosts.length + 1,
 			ipaddress: $scope.ipaddress,
 			subnet: $scope.subnet,
 			description: $scope.desc,
@@ -15,15 +16,31 @@ function HostsController($scope, $http) {
 
 		$http.post('/hosts', host)
 			.error(function(response) {
-				console.log(response);
+
 				$scope.errors = response;
+			
 			})
 			.success(function(response){
+
 				$scope.errors = null;
 				$scope.hosts.unshift(host);
+				
 			});	
+	};
 
-			
+	$scope.update = function(host) {
+
+		var hostID = host.id;
+
+		$http({method: 'PATCH', url: '/hosts/' + hostID + '/update'})
+			.success(function() {
+				$scope.hosts[$scope.hosts.length - hostID].enabled = invertStatus(hostID);
+				
+			});
+	};
+
+	invertStatus = function(hostID) {
+		return $scope.hosts[$scope.hosts.length - hostID].enabled ? false : true;
 	};
 
 }
