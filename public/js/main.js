@@ -33,14 +33,15 @@ function HostsController($scope, $http) {
 		var hostID = host.id;
 
 		$http({method: 'PATCH', url: '/hosts/' + hostID + '/update'})
-			.success(function() {
-				$scope.hosts[$scope.hosts.length - hostID].enabled = invertStatus(hostID);
+			.success(function(response) {
+				
+				$scope.hosts[$scope.hosts.length - hostID] = response;
 				
 			});
 	};
 
-	invertStatus = function(hostID) {
-		return $scope.hosts[$scope.hosts.length - hostID].enabled ? false : true;
-	};
+	// invertStatus = function(hostID) {
+	// 	return $scope.hosts[$scope.hosts.length - hostID].enabled ? false : true;
+	// };
 
 }
