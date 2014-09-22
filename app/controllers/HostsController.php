@@ -62,7 +62,8 @@ class HostsController extends \BaseController {
 	{
 		try 
 		{
-			return AuthHost::changeState($id);
+			return AuthHost::update($id, Input::all());
+			//return AuthHost::changeState($id);
 		}
 
 		catch(NonExistentHostException $e)

@@ -47,11 +47,23 @@ function HostsController($scope, $http) {
 
 	$scope.updateHost = function() {
 
-		console.log('posted');
+		var host = {
+			id: $scope.processedHost.id,
+			ipaddress: $scope.processedHost.ipaddress,
+			subnet: $scope.processedHost.subnet,
+			description: $scope.processedHost.description,
+			enabled: $scope.processedHost.enabled
+		};
 
+		$http.post('/hosts/' + host.id + '/update', host)
+			.success(function(response) {
+				console.log(response);
+			});
+
+		$scope.resetForm();
 	};
 
-	$scope.cancelEdit = function() {
+	$scope.resetForm = function() {
 
 		$scope.template = $scope.templates[0];
 

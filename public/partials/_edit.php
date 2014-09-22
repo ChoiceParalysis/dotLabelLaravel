@@ -16,7 +16,7 @@
 
 	<div class="form-group">
 		<label for="desc">Description:</label>
-		<textarea name="desc" class="form-control" ng-model="processedHost.desc"></textarea>
+		<textarea name="desc" class="form-control" ng-model="processedHost.description"></textarea>
 		<div class="error">{{ errors.description[0] }}</div><!-- end error -->
 	</div><!-- end form-group -->
 
@@ -26,8 +26,8 @@
 	</div><!-- end form-group -->
 
 	<div class="form-group">
-		<input type="submit" class="btn btn-success" value="Add Host">
-		<input type="submit" class="btn btn-danger" value="Cancel" ng-click="cancelEdit()">
+		<input type="submit" class="btn btn-success" value="Confirm">
+		<input type="submit" class="btn btn-danger" value="Cancel" ng-click="resetForm()">
 	</div><!-- end form-group -->
 
 </form>

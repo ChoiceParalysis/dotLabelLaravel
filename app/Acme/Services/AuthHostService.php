@@ -38,8 +38,13 @@ class AuthHostService
 	}
 
 	
-	public function update($host, $updates)
+	public function update($id, $updates)
 	{
+
+		$host = $this->hostRepository->find($id);
+
+		if (! $host) throw new NonExistentHostException('Host was not found.');
+
 		$host->ipaddress = $updates['ipaddress'];
 		$host->subnet = $updates['subnet'];
 		$host->description = $updates['description'];
