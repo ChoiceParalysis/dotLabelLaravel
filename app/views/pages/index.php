@@ -12,10 +12,14 @@
 
 <div class="col-md-6">
 
-	<h2 class="section-title">Allowed Hosts</h2>
+	<h2 class="section-title hosts">Allowed Hosts</h2>
+
+	<input type="text" id="search" class="form-control" placeholder="Filter hosts" ng-model="search">
+
+	<div style="clear: both";></div>
 
 	<ul class="list-group">
-		<li  class="list-group-item" ng-repeat="host in hosts" data-state="{{ host.enabled }}">
+		<li  class="list-group-item" ng-repeat="host in hosts | filter:search" data-state="{{ host.enabled }}">
 			{{ host.ipaddress }} / {{ host.subnet }}
 			
 			<ul class="options">

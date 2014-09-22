@@ -62,8 +62,6 @@ class HostsController extends \BaseController {
 		try 
 		{
 			return AuthHost::changeState($id);
-
-			//return Response::json(['success' => 'Updated successfully.']);
 		}
 
 		catch(NonExistentHostException $e)

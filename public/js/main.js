@@ -32,9 +32,11 @@ function HostsController($scope, $http) {
 
 		var hostID = host.id;
 
+		$scope.edit = 1234;
+
 		$http({method: 'PATCH', url: '/hosts/' + hostID + '/update'})
 			.success(function(response) {
-				
+
 				$scope.hosts[$scope.hosts.length - hostID] = response;
 				
 			});

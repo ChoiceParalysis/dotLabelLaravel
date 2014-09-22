@@ -30,6 +30,16 @@ General styling
 	background: #C8F7C5;
 }
 
+.hosts {
+	float: left;
+}
+
+#search {
+	float: right;
+	width: 150px;
+	margin-top: 20px;
+}
+
 /*
 -------------------------------------------------------------------------------
 Typography
