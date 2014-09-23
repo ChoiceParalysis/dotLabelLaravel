@@ -2,7 +2,7 @@
 <html lang="en" ng-app>
 <head>
 	<meta charset="UTF-8">
-	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+	<!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'> -->
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/style.css">
 	<title>Authorised Hosts Administration app</title>
@@ -37,7 +37,7 @@
 				</li>
 
 				<li class="options-item">
-					<a href="delete">Delete</a>
+					<a class="option-link" ng-click="deleteHost(host)">Delete</a>
 				</li>
 			</ul>
 		</li>

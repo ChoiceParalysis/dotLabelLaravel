@@ -8,7 +8,7 @@ function HostsController($scope, $http) {
     $scope.template = $scope.templates[0];
 
 	$http.get('/hosts').success(function(hosts) {
-		$scope.hosts = hosts;
+		$scope.hosts = hosts.reverse();
 		$scope.processedHost = {};
 	});
 
@@ -31,10 +31,11 @@ function HostsController($scope, $http) {
 			.success(function(response){
 
 				$scope.errors = null;
-				$scope.hosts.unshift(host);
+				$scope.hosts.push(host);
 				
 			});	
 	};
+
 
 	$scope.showEditForm = function(host) {
 
@@ -57,21 +58,14 @@ function HostsController($scope, $http) {
 
 		$http.post('/hosts/' + host.id + '/update', host)
 			.success(function(response) {
-				console.log(response);
+				$scope.resetForm();
 			});
-
-		$scope.resetForm();
 	};
-
-	$scope.resetForm = function() {
-
-		$scope.template = $scope.templates[0];
-
-		$scope.processedHost = {};
-	};	
 
 
 	$scope.updateStatus = function(host) {
+
+		var index = $scope.hosts.indexOf(host);
 
 		host.enabled = host.enabled ? false : true;
 
@@ -80,9 +74,30 @@ function HostsController($scope, $http) {
 		$http.post('/hosts/' + hostID + '/update', host)
 			.success(function(response) {
 			
-				$scope.hosts[$scope.hosts.length - hostID] = response;
+				$scope.hosts[index] = response;
 				
 			});
 	};
+
+
+	$scope.deleteHost = function(host) {
+
+		var index = $scope.hosts.indexOf(host);
+			
+
+		$http.delete('/hosts/' + host.id)
+			.success(function() {
+				$scope.hosts.splice(index, 1);
+			});	
+
+	};
+
+
+	$scope.resetForm = function() {
+
+		$scope.template = $scope.templates[0];
+
+		$scope.processedHost = {};
+	};	
 
 }

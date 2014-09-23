@@ -80,9 +80,16 @@ class HostsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		$host = $this->hostRepository->find($id);
+		try {
+			return AuthHost::delete($id);
+		}
 
-		return $host;
+		catch(NonExistentHostException $e)
+		{
+			return $e->getErrors();
+		}
+
+		
 	}
 
 

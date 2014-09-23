@@ -22,14 +22,7 @@ class AuthHostService
 	{
 		if($this->validator->isValid($attributes))
 		{
-			return Host::create([
-
-				'ipaddress' => $attributes['ipaddress'],
-				'subnet' => $attributes['subnet'],
-				'description' => $attributes['description'],
-				'enabled' => isset($attributes['enabled']) ? 1 : 0
-
-			]);
+			return $this->hostRepository->create($attributes);
 
 		}
 
@@ -45,15 +38,15 @@ class AuthHostService
 
 		if (! $host) throw new NonExistentHostException('Host was not found.');
 
-		$host->ipaddress = $updates['ipaddress'];
-		$host->subnet = $updates['subnet'];
-		$host->description = $updates['description'];
-		$host->enabled = $updates['enabled'];
+		return $this->hostRepository->update($host, $updates);
 
-		$host->save();
-
-		return $host;
 	}
+
+
+	public function delete($id)
+	{
+		return $this->hostRepository->delete($id);
+	}	
 
 
 	public function changeState($id)

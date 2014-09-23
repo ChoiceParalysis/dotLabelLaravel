@@ -44,6 +44,10 @@ General styling
 	margin-top: 20px;
 }
 
+textarea {
+	min-height: 120px;
+}
+
 /*
 -------------------------------------------------------------------------------
 Typography
