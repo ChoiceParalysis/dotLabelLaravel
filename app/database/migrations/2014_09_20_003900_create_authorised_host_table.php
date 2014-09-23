@@ -19,8 +19,7 @@ class CreateAuthorisedHostTable extends Migration {
 			$table->smallInteger('subnet')->nullable();
 			$table->text('description')->nullable();
 			$table->timestamps();
-			$table->tinyInteger('enabled');
-			
+			$table->tinyInteger('enabled');			
 		});
 	}
 

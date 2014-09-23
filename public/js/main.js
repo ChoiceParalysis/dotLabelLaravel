@@ -15,7 +15,6 @@ function HostsController($scope, $http) {
 	$scope.addHost = function() {
 
 		var host = {
-			id: $scope.hosts.length + 1,
 			ipaddress: $scope.processedHost.ipaddress,
 			subnet: $scope.processedHost.subnet,
 			description: $scope.processedHost.desc,
@@ -58,7 +57,14 @@ function HostsController($scope, $http) {
 
 		$http.post('/hosts/' + host.id + '/update', host)
 			.success(function(response) {
+
 				$scope.resetForm();
+			
+			})
+			.error(function(response) {
+			
+				$scope.errors = response;
+			
 			});
 	};
 
@@ -96,7 +102,7 @@ function HostsController($scope, $http) {
 	$scope.resetForm = function() {
 
 		$scope.template = $scope.templates[0];
-
+		$scope.errors = [];
 		$scope.processedHost = {};
 	};	
 

@@ -33,10 +33,7 @@ class DbHostsRepository implements HostsRepositoryInterface
 
 	public function delete($id)
 	{
-
-		$host = Host::find($id);
-
-		return ($host->delete()) ? $host : null; 
+		return Host::find($id)->delete();		
 	}
 
 

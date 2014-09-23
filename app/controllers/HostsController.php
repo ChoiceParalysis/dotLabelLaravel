@@ -65,9 +65,9 @@ class HostsController extends \BaseController {
 			return AuthHost::update($id, Input::all());
 		}
 
-		catch(NonExistentHostException $e)
+		catch(HostValidationException $e)
 		{
-			return $e->getErrors();
+			return Response::json($e->getErrors(), 400);
 		}
 	}
 

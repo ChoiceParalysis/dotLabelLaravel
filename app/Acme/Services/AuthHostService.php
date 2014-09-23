@@ -32,20 +32,28 @@ class AuthHostService
 
 	
 	public function update($id, $updates)
-	{
-
+	{		
+		// refactor : only send the ID to the repository
 		$host = $this->hostRepository->find($id);
 
 		if (! $host) throw new NonExistentHostException('Host was not found.');
 
-		return $this->hostRepository->update($host, $updates);
+		if ($this->validator->isValid($updates, $host->id))
+		{
+			$host = $this->hostRepository->update($host, $updates);
+
+			return $host;
+		}
+
+		throw new HostValidationException('Host Validation failed', $this->validator->getErrors());
 
 	}
 
 
 	public function delete($id)
 	{
-		return $this->hostRepository->delete($id);
+		if ( ! $this->hostRepository->delete($id))
+			throw new NonExistentHostException('Host was not found.');
 	}	
 
 
