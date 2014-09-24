@@ -1,35 +1,57 @@
 function HostsController($scope, $http) {
 	
-	$scope.templates = [ 
+	$scope.forms = [ 
 		{ name: 'createForm', url: 'partials/_create.php'},
       	{ name: 'editForm', url: 'partials/_edit.php'} 
   	];
 
-    $scope.template = $scope.templates[0];
+  // 	$scope.options = [
+		// { method: }
+  // 	];
 
-	$http.get('/hosts').success(function(hosts) {
-		$scope.hosts = hosts.reverse();
-		$scope.processedHost = {};
+    $scope.form = $scope.forms[0];
+
+	$http.get('/hosts').success(function(response) {
+		$scope.hosts = response.data.reverse();
+		$scope.formValues = {};
+
 	});
+
+	sendHost = function(host, action) {
+
+		$http.post('/hosts', host)
+			.error(function(response) {
+				$scope.errors = response;
+			})
+			.success(function(response) {
+				resetForm();
+
+				if (action == 'create') {
+					$scope.hosts.push(host);
+				}
+			});
+
+	};
 
 	$scope.addHost = function() {
 
 		var host = {
-			ipaddress: $scope.processedHost.ipaddress,
-			subnet: $scope.processedHost.subnet,
-			description: $scope.processedHost.desc,
-			enabled: $scope.processedHost.enabled
+			ipaddress: $scope.formValues.ipaddress,
+			subnet: $scope.formValues.subnet,
+			description: $scope.formValues.desc,
+			enabled: $scope.formValues.enabled
 		}
 
 		$http.post('/hosts', host)
 			.error(function(response) {
 
-				$scope.errors = response;
+				$scope.errors = response.error;
 			
 			})
 			.success(function(response){
 
-				$scope.errors = null;
+				host = response.data;
+
 				$scope.hosts.push(host);
 				
 			});	
@@ -38,9 +60,9 @@ function HostsController($scope, $http) {
 
 	$scope.showEditForm = function(host) {
 
-		$scope.template = $scope.templates[1];
+		$scope.form = $scope.forms[1];
 
-		$scope.processedHost = host;
+		$scope.formValues = host;
 
 	};
 
@@ -48,11 +70,11 @@ function HostsController($scope, $http) {
 	$scope.updateHost = function() {
 
 		var host = {
-			id: $scope.processedHost.id,
-			ipaddress: $scope.processedHost.ipaddress,
-			subnet: $scope.processedHost.subnet,
-			description: $scope.processedHost.description,
-			enabled: $scope.processedHost.enabled
+			id: $scope.formValues.id,
+			ipaddress: $scope.formValues.ipaddress,
+			subnet: $scope.formValues.subnet,
+			description: $scope.formValues.description,
+			enabled: $scope.formValues.enabled
 		};
 
 		$http.post('/hosts/' + host.id + '/update', host)
@@ -101,9 +123,9 @@ function HostsController($scope, $http) {
 
 	$scope.resetForm = function() {
 
-		$scope.template = $scope.templates[0];
+		$scope.form = $scope.forms[0];
 		$scope.errors = [];
-		$scope.processedHost = {};
+		$scope.formValues = {};
 	};	
 
 }

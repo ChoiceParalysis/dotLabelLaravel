@@ -1,20 +1,21 @@
 <?php
 
-use Acme\Repositories\AllowedHostsRepository\HostsRepositoryInterface;
-use Acme\Services\HostCreatorService;
+use Acme\Repositories\HostsRepository\HostsRepositoryInterface;
 use Acme\Validators\HostValidationException;
 use Acme\Exceptions\NonExistentHostException;
+use Acme\Transformers\HostTransformer;
 
-class HostsController extends \BaseController {
+class HostsController extends ApiController {
 
-	protected $hostRepository;
-	protected $hostCreator;
 
-	public function __construct(HostsRepositoryInterface $hostRepository, HostCreatorService $hostCreator)
+	protected $transformer;
+
+
+	public function __construct(HostTransformer $transformer)
 	{
-		$this->hostRepository = $hostRepository;
-		$this->hostCreator = $hostCreator;
+		$this->transformer = $transformer;
 	}
+
 
 	/**
 	 * Display a listing of the resource.
@@ -23,11 +24,12 @@ class HostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$hosts = $this->hostRepository->all();
 
-		return $hosts;
+		$hosts = AuthorisedHosts::all();
 
-		//return View::make('hosts.index', compact('hosts'));
+		return $this->respond([
+			'data' => $this->transformer->transformCollection($hosts->toArray())
+		]);
 	}
 
 
@@ -40,14 +42,17 @@ class HostsController extends \BaseController {
 	{
 		try {
 
-			return AuthHost::create(Input::all());
-			
-			// return Response::json(['success' => 'Added successfully.']);
+			$host = AuthorisedHosts::create(Input::all());
+
+			return $this->respond([
+				'data' => $this->transformer->transform($host)
+			]);	
+
 		}
 
 		catch(HostValidationException $e)
 		{
-			return Response::json($e->getErrors(), 408);
+			return $this->respondBadRequest($e->getErrors());
 		}
 	}
 
@@ -62,7 +67,7 @@ class HostsController extends \BaseController {
 	{
 		try 
 		{
-			return AuthHost::update($id, Input::all());
+			return AuthorisedHosts::update($id, Input::all());
 		}
 
 		catch(HostValidationException $e)
@@ -81,7 +86,7 @@ class HostsController extends \BaseController {
 	public function destroy($id)
 	{
 		try {
-			return AuthHost::delete($id);
+			return AuthorisedHosts::delete($id);
 		}
 
 		catch(NonExistentHostException $e)
