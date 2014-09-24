@@ -60,7 +60,9 @@ class AuthorisedHosts
 	public function delete($id)
 	{
 		if ( ! $this->hostsRepository->delete($id))
-			throw new NonExistentHostException('Host was not found.');
+			throw new NonExistentHostException('Host was not found.', ['Host was not found.']);
+
+		return true;
 	}	
 
 

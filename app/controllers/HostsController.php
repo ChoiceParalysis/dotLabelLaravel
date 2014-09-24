@@ -46,8 +46,7 @@ class HostsController extends ApiController {
 
 			return $this->respond([
 				'data' => $this->transformer->transform($host)
-			]);	
-
+			]);
 		}
 
 		catch(HostValidationException $e)
@@ -67,12 +66,16 @@ class HostsController extends ApiController {
 	{
 		try 
 		{
-			return AuthorisedHosts::update($id, Input::all());
+			$host = AuthorisedHosts::update($id, Input::all());
+
+			return $this->respond([
+				'data' => $this->transformer->transform($host)
+			]);
 		}
 
 		catch(HostValidationException $e)
 		{
-			return Response::json($e->getErrors(), 400);
+			return $this->respondBadRequest($e->getErrors());
 		}
 	}
 
@@ -86,12 +89,19 @@ class HostsController extends ApiController {
 	public function destroy($id)
 	{
 		try {
-			return AuthorisedHosts::delete($id);
+			if (AuthorisedHosts::delete($id))
+			{
+				return $this->respond(
+					['data' => [
+						'message' => 'Post deleted successfully.'
+						]	
+					]);
+			}
 		}
 
 		catch(NonExistentHostException $e)
 		{
-			return $e->getErrors();
+			return $this->setErrors($e->getErrors())->respondNotFound();
 		}
 
 		

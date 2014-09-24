@@ -45,7 +45,7 @@ function HostsController($scope, $http) {
 		$http.post('/hosts', host)
 			.error(function(response) {
 
-				$scope.errors = response.error;
+				
 			
 			})
 			.success(function(response){
@@ -77,41 +77,36 @@ function HostsController($scope, $http) {
 			enabled: $scope.formValues.enabled
 		};
 
-		$http.post('/hosts/' + host.id + '/update', host)
-			.success(function(response) {
-
-				$scope.resetForm();
-			
-			})
-			.error(function(response) {
-			
-				$scope.errors = response;
-			
-			});
+		postToServer(host);
 	};
 
 
 	$scope.updateStatus = function(host) {
 
-		var index = $scope.hosts.indexOf(host);
-
 		host.enabled = host.enabled ? false : true;
 
-		var hostID = host.id;
+		postToServer(host);
+	};
 
-		$http.post('/hosts/' + hostID + '/update', host)
-			.success(function(response) {
-			
-				$scope.hosts[index] = response;
-				
+
+	postToServer = function(host) {
+
+		var index = $scope.hosts.indexOf(host);
+
+		$http.post('/hosts/' + host.id + '/update', host)
+			.success(function() {
+				$scope.resetForm();
+			})
+			.error(function(response) {
+				$scope.errors = response.error.errors;
 			});
+
 	};
 
 
 	$scope.deleteHost = function(host) {
 
 		var index = $scope.hosts.indexOf(host);
-			
 
 		$http.delete('/hosts/' + host.id)
 			.success(function() {
@@ -125,7 +120,8 @@ function HostsController($scope, $http) {
 
 		$scope.form = $scope.forms[0];
 		$scope.errors = [];
-		$scope.formValues = {};
+		$scope.formValues = {};	
+
 	};	
 
 }

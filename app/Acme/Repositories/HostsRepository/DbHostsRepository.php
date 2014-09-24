@@ -1,6 +1,7 @@
 <?php namespace Acme\Repositories\HostsRepository;
 
 use Host;
+use Exception;
 
 class DbHostsRepository implements HostsRepositoryInterface
 {
@@ -33,7 +34,14 @@ class DbHostsRepository implements HostsRepositoryInterface
 
 	public function delete($id)
 	{
-		return Host::find($id)->delete();		
+		$host = Host::find($id);
+
+		if ($host)
+		{
+			return $host->delete();
+		}
+		
+		return false;
 	}
 
 

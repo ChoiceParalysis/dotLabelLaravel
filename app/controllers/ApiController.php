@@ -4,6 +4,7 @@ class ApiController extends BaseController
 {
 
 	protected $statusCode = 200;
+	protected $apiStatusCode = 215;
 	protected $errors = [];
 
 
@@ -18,6 +19,20 @@ class ApiController extends BaseController
 	public function getStatusCode()
 	{
 		return $this->statusCode;
+	}
+
+
+	public function setApiStatusCode($code)
+	{
+		$this->apiStatusCode = $code;
+
+		return $this;
+	}
+
+
+	public function getApiStatusCode()
+	{
+		return $this->apiStatusCode;
 	}
 
 
@@ -52,7 +67,7 @@ class ApiController extends BaseController
 		return $this->respond([
 			'error' => [
 				'message' => $message,
-				'code' => $this->getApiCode(),
+				'code' => $this->getApiStatusCode(),
 				'errors' => $this->getErrors()
 			]
 		]);

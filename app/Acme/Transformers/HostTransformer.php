@@ -7,6 +7,7 @@ class HostTransformer extends Transformer
 	{
 		return [
 
+			'id' => $host['id'],
 			'ipaddress' => $host['ipaddress'],
 			'subnet' => $host['subnet'],
 			'description' => $host['description'],
