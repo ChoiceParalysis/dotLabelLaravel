@@ -20,7 +20,7 @@ abstract class Validator
 
 		return true;
 	}
-
+	
 
 	public function getErrors()
 	{

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
 	<!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'> -->
@@ -59,6 +59,7 @@
 </div><!-- end container -->
 
 <script type="text/javascript" src="/js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-route.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>

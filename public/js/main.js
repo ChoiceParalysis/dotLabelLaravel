@@ -1,25 +1,37 @@
-function HostsController($scope, $http) {
-	
+var app = angular.module("app", ['ngRoute'])
+
+var api = 'api/v1';
+
+app.config(function($routeProvider) 
+{
+
+	$routeProvider.when('/', {
+		templateUrl: 'index.php',
+		controller: 'HostsController'
+	});
+
+	$routeProvider.otherwise({ redirectTo: 'index.php'});
+
+});
+
+app.controller('HostsController', function($scope, $http)
+{
 	$scope.forms = [ 
 		{ name: 'createForm', url: 'partials/_create.php'},
       	{ name: 'editForm', url: 'partials/_edit.php'} 
   	];
 
-  // 	$scope.options = [
-		// { method: }
-  // 	];
-
     $scope.form = $scope.forms[0];
 
-	$http.get('/hosts').success(function(response) {
-		$scope.hosts = response.data.reverse();
+	$http.get('api/v1/hosts').success(function(response) {
+		$scope.hosts = response.data;
 		$scope.formValues = {};
 
 	});
 
 	sendHost = function(host, action) {
 
-		$http.post('/hosts', host)
+		$http.post('/api/v1/hosts', host)
 			.error(function(response) {
 				$scope.errors = response;
 			})
@@ -42,11 +54,11 @@ function HostsController($scope, $http) {
 			enabled: $scope.formValues.enabled
 		}
 
-		$http.post('/hosts', host)
+		$http.post('api/v1/hosts', host)
 			.error(function(response) {
 
-				
-			
+				$scope.error = response.error.errors;	
+				console.log($scope.error.errors);		
 			})
 			.success(function(response){
 
@@ -77,7 +89,7 @@ function HostsController($scope, $http) {
 			enabled: $scope.formValues.enabled
 		};
 
-		postToServer(host);
+		postUpdate(host);
 	};
 
 
@@ -85,15 +97,15 @@ function HostsController($scope, $http) {
 
 		host.enabled = host.enabled ? false : true;
 
-		postToServer(host);
+		postUpdate(host);
 	};
 
 
-	postToServer = function(host) {
+	postUpdate = function(host) {
 
 		var index = $scope.hosts.indexOf(host);
 
-		$http.post('/hosts/' + host.id + '/update', host)
+		$http.post('api/v1/hosts/' + host.id + '/update', host)
 			.success(function() {
 				$scope.resetForm();
 			})
@@ -108,7 +120,7 @@ function HostsController($scope, $http) {
 
 		var index = $scope.hosts.indexOf(host);
 
-		$http.delete('/hosts/' + host.id)
+		$http.delete('api/v1/hosts/' + host.id)
 			.success(function() {
 				$scope.hosts.splice(index, 1);
 			});	
@@ -123,5 +135,5 @@ function HostsController($scope, $http) {
 		$scope.formValues = {};	
 
 	};	
+});
 
-}
