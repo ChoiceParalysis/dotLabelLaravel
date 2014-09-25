@@ -56,9 +56,9 @@ class ApiController extends BaseController
 	}
 
 
-	public function respondBadRequest($errors, $message = 'Bad request.')
+	public function respondUnprocessableEntity($errors, $message = 'Unprocessable Entity.')
 	{
-		return $this->setStatusCode(400)->setErrors($errors)->respondWithErrors($message);
+		return $this->setStatusCode(422)->setErrors($errors)->respondWithErrors($message);
 	}
 
 

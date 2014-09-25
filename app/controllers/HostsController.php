@@ -14,6 +14,8 @@ class HostsController extends ApiController {
 	public function __construct(HostTransformer $transformer)
 	{
 		$this->transformer = $transformer;
+
+		$this->beforeFilter('auth.basic', ['on' => ['post', 'delete']]);
 	}
 
 
@@ -39,7 +41,8 @@ class HostsController extends ApiController {
 	 * @return Response
 	 */
 	public function store()
-	{
+	{	
+		
 		try {
 
 			$host = AuthorisedHosts::create(Input::all());
@@ -51,7 +54,7 @@ class HostsController extends ApiController {
 
 		catch(HostValidationException $e)
 		{
-			return $this->respondBadRequest($e->getErrors());
+			return $this->respondUnprocessableEntity($e->getErrors());
 		}
 	}
 
@@ -75,7 +78,7 @@ class HostsController extends ApiController {
 
 		catch(HostValidationException $e)
 		{
-			return $this->respondBadRequest($e->getErrors());
+			return $this->respondUnprocessableEntity($e->getErrors(), 'Parameters failed validation.');
 		}
 	}
 

@@ -8,11 +8,11 @@ Route::group(['prefix' => 'api/v1'], function() {
 
 	Route::get('hosts', 'HostsController@index');
 
-Route::post('hosts', 'HostsController@store');
+	Route::post('hosts', 'HostsController@store');
 
-Route::post('hosts/{id}/update', 'HostsController@update');
+	Route::post('hosts/{id}/update', 'HostsController@update');
 
-Route::delete('/hosts/{id}', 'HostsController@destroy');
+	Route::delete('/hosts/{id}', 'HostsController@destroy');
 
 });
 
