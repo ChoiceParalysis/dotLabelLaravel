@@ -10,19 +10,22 @@ class HostsController extends ApiController {
 
 	protected $transformer;
 
-
+	/**
+	 *	 
+	 * @param HostTransformer $transformer 
+	 */
 	public function __construct(HostTransformer $transformer)
 	{
 		$this->transformer = $transformer;
 
-		$this->beforeFilter('auth.basic', ['on' => ['post', 'delete']]);
+		$this->beforeFilter('auth.basic', ['on' => ['post', 'patch', 'delete']]);
 	}
 
 
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return Response
+	 * @return json object containing hosts data
 	 */
 	public function index()
 	{
@@ -34,7 +37,11 @@ class HostsController extends ApiController {
 		]);
 	}
 
-
+	/**
+	 * Method to display information about a specific host
+	 * @param  int $id Host ID in the repository
+	 * @return json object containing host data or error messages
+	 */
 	public function show($id)
 	{
 		$host = AuthorisedHosts::find($id);
@@ -53,7 +60,8 @@ class HostsController extends ApiController {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @return Response
+	 * @return json object containing newly created host object's data 
+	 *         or an object containing error
 	 */
 	public function store()
 	{	
@@ -74,8 +82,8 @@ class HostsController extends ApiController {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param  int $id Host ID in the repository
+	 * @return json object containing updated host object or error messages
 	 */
 	public function update($id)
 	{
@@ -96,8 +104,8 @@ class HostsController extends ApiController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param  int  $id Host ID in the repository
+	 * @return json object containing success or error messages
 	 */
 	public function destroy($id)
 	{

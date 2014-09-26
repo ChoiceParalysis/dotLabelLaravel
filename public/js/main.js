@@ -47,16 +47,17 @@ app.controller('HostsController', function($scope, $http)
 
 	$scope.updateHost = function() 
 	{
-		console.log($scope.formValues);
 		postUpdate($scope.formValues);
 	};
 
 
 	$scope.updateStatus = function(host) 
 	{
-		host.enabled = host.enabled ? false : true;
+		var update = angular.copy(host, update);
 
-		postUpdate(host);
+		update.enabled = update.enabled ? false : true;
+
+		postUpdate(update);
 	};
 
 
