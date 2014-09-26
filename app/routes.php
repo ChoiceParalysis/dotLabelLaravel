@@ -1,18 +1,21 @@
-s<?php
+<?php
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@index']);
 
 Route::group(['prefix' => 'api/v1'], function() {
 
-	Route::get('hosts', 'HostsController@index');
 
-	Route::get('/hosts/{id}', 'HostsController@show');
+	Route::resource('hosts', 'HostsController');
 
-	Route::post('hosts', 'HostsController@store');
+	// Route::get('hosts', 'HostsController@index');
 
-	Route::post('hosts/{id}/update', 'HostsController@update');
+	// Route::get('/hosts/{id}', 'HostsController@show');
 
-	Route::delete('/hosts/{id}', 'HostsController@destroy');
+	// Route::post('hosts', 'HostsController@store');
+
+	// Route::patch('hosts/{id}/update', 'HostsController@update');
+
+	// Route::delete('/hosts/{id}', 'HostsController@destroy');
 
 });
 

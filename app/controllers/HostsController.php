@@ -104,14 +104,7 @@ class HostsController extends ApiController {
 		try {
 			if (AuthorisedHosts::delete($id))
 			{
-
-				return $this->respondDeleted();
-
-				return $this->respond([
-					'data' => [
-						'message' => 'Post deleted successfully.'
-						]	
-					]);
+				return $this->respondDeleted('Host deleted successfully.');
 			}
 		}
 

@@ -2,18 +2,6 @@ var app = angular.module("app", ['ngRoute'])
 
 var api = 'api/v1';
 
-// app.config(function($routeProvider) 
-// {
-
-// 	$routeProvider.when('/', {
-// 		templateUrl: 'index.php',
-// 		controller: 'HostsController'
-// 	});
-
-// 	$routeProvider.otherwise({ redirectTo: 'index.php'});
-
-// });
-
 app.controller('HostsController', function($scope, $http)
 {
 	$scope.forms = [ 
@@ -23,45 +11,43 @@ app.controller('HostsController', function($scope, $http)
 
     $scope.form = $scope.forms[0];
 
-	$http.get('api/v1/hosts').success(function(response) {
+	$http.get('api/v1/hosts').success(function(response) 
+	{
 		$scope.hosts = response.data;
 		$scope.formValues = {};
-
 	});
 
 
-	$scope.addHost = function() {
-
+	$scope.addHost = function() 
+	{
 		$http.post('api/v1/hosts', $scope.formValues)
-			.error(function(response) {
 
-				$scope.errors = response.errors;	
-					
-			})
-			.success(function(response){
-
+			.success(function(response)
+			{
 				host = response.data;
 				$scope.hosts.unshift(host);
 
 				$scope.resetForm();
+			})
 
-			});	
+			.error(function(response) 
+			{
+				$scope.errors = response.errors;	
+			});
 	};
 
 
-	$scope.showEditForm = function(host) {
-
+	$scope.showEditForm = function(host) 
+	{
 		$scope.form = $scope.forms[1];
 
 		angular.copy(host, $scope.formValues);
-
-		//$scope.formValues = angular.host;
-
 	};
 
 
 	$scope.updateHost = function() 
 	{
+		console.log($scope.formValues);
 		postUpdate($scope.formValues);
 	};
 
@@ -78,39 +64,42 @@ app.controller('HostsController', function($scope, $http)
 	{
 		var index = $scope.hosts.indexOf(host);
 
-		$http.post('/api/v1/hosts/' + host.id + '/update', host)
-			.success(function(response)
-			{
-				updateHostList(response.data);
+		$http({
+			url: '/api/v1/hosts/' + host.id,
+			data: host,
+			method: "PATCH"
+		})
 
-				$scope.resetForm();
-			})
-			.error(function(response) 
-			{
-				$scope.errors = response.errors;
-			});
+		.success(function(response) {
+			updateHostList(response.data);
+
+			$scope.resetForm();
+		})
+
+		.error(function(response){
+			$scope.errors = response.errors;
+		});
 	};
 
 
-	$scope.deleteHost = function(host) {
-
+	$scope.deleteHost = function(host) 
+	{
 		var index = $scope.hosts.indexOf(host);
 
 		$http.delete('/api/v1/hosts/' + host.id)
+		
 			.success(function() 
 			{
 				$scope.hosts.splice(index, 1);
 			});	
-
 	};
 
 
-	$scope.resetForm = function() {
-
+	$scope.resetForm = function()
+	 {
 		$scope.form = $scope.forms[0];
 		$scope.errors = [];
 		$scope.formValues = {};	
-
 	};	
 
 

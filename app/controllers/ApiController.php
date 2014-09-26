@@ -52,7 +52,7 @@ class ApiController extends BaseController
 
 	public function respondCreated($data, $message = 'Created successfully.')
 	{
-		return $this->respond([
+		return $this->setStatusCode(201)->respond([
 			'data' => $data,
 			'message' => $message
 		]);
@@ -63,6 +63,14 @@ class ApiController extends BaseController
 	{
 		return $this->respond([
 			'data' => $data,
+			'message' => $message
+		]);
+	}
+
+
+	public function respondDeleted($message)
+	{
+		return $this->setStatusCode(201)->respond([
 			'message' => $message
 		]);
 	}
