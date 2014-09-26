@@ -21,15 +21,7 @@
 	<ul class="list-group">
 		<li  class="list-group-item" ng-repeat="host in hosts | filter:search" data-enabled="{{ host.enabled }}">
 			{{ host.ipaddress }} / {{ host.subnet }}
-			
 
-			<!-- <ul class="options">
-				<li class="option-item" ng-repeat="option in options">
-					<a class="option-link" ng-click="option.method(host)">{{ option.title }}</a>
-				</li>
-			</ul> // end options -->
-
-			
 			<ul class="options">
 				<li class="options-item">
 					<a class="option-link" ng-click="updateStatus(host)">

@@ -26,6 +26,12 @@ class AuthorisedHosts
 	}
 
 
+	public function find($id)
+	{
+		return $this->hostsRepository->find($id);
+	}
+
+
 	public function create($attributes)
 	{
 		if($this->validator->isValid($attributes))

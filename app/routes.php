@@ -1,12 +1,12 @@
-<?php
+s<?php
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@index']);
 
 Route::group(['prefix' => 'api/v1'], function() {
 
-	//Route::resource('hosts', 'HostsController', ['only' => ['index', 'store', 'update', 'destroy']]);
-
 	Route::get('hosts', 'HostsController@index');
+
+	Route::get('/hosts/{id}', 'HostsController@show');
 
 	Route::post('hosts', 'HostsController@store');
 

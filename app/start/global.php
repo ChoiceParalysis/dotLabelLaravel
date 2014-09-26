@@ -52,16 +52,16 @@ App::error(function(Exception $exception, $code)
 });
 
 
-// App::error(function(Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException $e)
-// {
-// 	return Redirect::home();
-// });
+App::error(function(Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException $e)
+{
+	return Redirect::home();
+});
 
 
-// App::error(function(Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e)
-// {
-// 	return Redirect::home();
-// });
+App::error(function(Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e)
+{
+	return Redirect::home();
+});
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

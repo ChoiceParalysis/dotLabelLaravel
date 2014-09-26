@@ -47,7 +47,25 @@ class ApiController extends BaseController
 	public function getErrors()
 	{
 		return $this->errors;
-	}	
+	}
+
+
+	public function respondCreated($data, $message = 'Created successfully.')
+	{
+		return $this->respond([
+			'data' => $data,
+			'message' => $message
+		]);
+	}
+
+
+	public function respondUpdated($data, $message = 'Updated successfully.')
+	{
+		return $this->respond([
+			'data' => $data,
+			'message' => $message
+		]);
+	}
 
 
 	public function respondNotFound($message = 'Not found.')
@@ -65,11 +83,9 @@ class ApiController extends BaseController
 	public function respondWithErrors($message)
 	{
 		return $this->respond([
-			'error' => [
-				'message' => $message,
-				'code' => $this->getApiStatusCode(),
-				'errors' => $this->getErrors()
-			]
+			'errors' => $this->getErrors(),
+			'message' => $message,
+			'code' => $this->getApiStatusCode()
 		]);
 	}
 

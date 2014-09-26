@@ -35,6 +35,21 @@ class HostsController extends ApiController {
 	}
 
 
+	public function show($id)
+	{
+		$host = AuthorisedHosts::find($id);
+
+		if (! $host)
+		{
+			return $this->respondNotFound();
+		}
+
+		return $this->respond([
+			'data' => $this->transformer->transform($host)
+		]);
+	}
+
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -42,14 +57,11 @@ class HostsController extends ApiController {
 	 */
 	public function store()
 	{	
-		
-		try {
-
+		try 
+		{
 			$host = AuthorisedHosts::create(Input::all());
 
-			return $this->respond([
-				'data' => $this->transformer->transform($host)
-			]);
+			return $this->respondCreated($this->transformer->transform($host), 'Host created successfully.');
 		}
 
 		catch(HostValidationException $e)
@@ -71,9 +83,7 @@ class HostsController extends ApiController {
 		{
 			$host = AuthorisedHosts::update($id, Input::all());
 
-			return $this->respond([
-				'data' => $this->transformer->transform($host)
-			]);
+			return $this->respondUpdated($this->transformer->transform($host));
 		}
 
 		catch(HostValidationException $e)
@@ -94,8 +104,11 @@ class HostsController extends ApiController {
 		try {
 			if (AuthorisedHosts::delete($id))
 			{
-				return $this->respond(
-					['data' => [
+
+				return $this->respondDeleted();
+
+				return $this->respond([
+					'data' => [
 						'message' => 'Post deleted successfully.'
 						]	
 					]);
