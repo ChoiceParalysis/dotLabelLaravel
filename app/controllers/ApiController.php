@@ -118,7 +118,7 @@ class ApiController extends BaseController
 	 */
 	public function respondDeleted($message = 'Deleted successfully.')
 	{
-		return $this->setStatusCode(201)->respond([
+		return $this->respond([
 			'message' => $message
 		]);
 	}

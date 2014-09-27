@@ -3,6 +3,11 @@
 class HostTransformer extends Transformer
 {
 
+	/**
+	 * Transform the host object to avoid direct repository and API linking
+	 * @param  array $host 
+	 * @return array
+	 */
 	public function transform($host)
 	{
 		return [

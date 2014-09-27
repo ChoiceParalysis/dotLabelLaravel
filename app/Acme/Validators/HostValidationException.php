@@ -13,7 +13,10 @@ class HostValidationException extends Exception
 		parent::__construct($message, $code, $previous);
 	}
 
-
+	/**
+	 * Array of errors
+	 * @return array
+	 */
 	public function getErrors()
 	{
 		return $this->errors;
