@@ -20,18 +20,31 @@ class AuthorisedHosts
 	}
 
 
+	/**
+	 * Get all items from the repository
+	 * @param  string $order Order of collection to be retrieved
+	 * @return collection host objects
+	 */
 	public function all()
 	{
 		return $this->hostsRepository->all();
 	}
 
-
+	/**
+	 * Find an item in the repository provided
+	 * @param  int $id
+	 * @return object    Object containing host data
+	 */
 	public function find($id)
 	{
 		return $this->hostsRepository->find($id);
 	}
 
-
+	/**
+	 * Create new item in the repository
+	 * @param  array $attributes
+	 * @return object    Object containing host data
+	 */
 	public function create($attributes)
 	{
 		if($this->validator->isValid($attributes))
@@ -43,7 +56,12 @@ class AuthorisedHosts
 		
 	}
 
-	
+	/**
+	 * Update host in the repository
+	 * @param  int $id    
+	 * @param  array $updates
+	 * @return object
+	 */
 	public function update($id, $updates)
 	{		
 		// refactor : only send the ID to the repository
@@ -62,28 +80,22 @@ class AuthorisedHosts
 
 	}
 
-
+	/**
+	 * Delete an item from the repository
+	 * @param  int $id
+	 * @return bool
+	 */
 	public function delete($id)
 	{
+		// Check if the host was deleted successfully
 		if ( ! $this->hostsRepository->delete($id))
+		{
 			throw new NonExistentHostException('Host was not found.', ['Host was not found.']);
+		}
 
 		return true;
 	}	
 
-
-	public function changeState($id)
-	{
-		$host = $this->hostsRepository->find($id);
-
-		if (! $host) throw new NonExistentHostException('Host does not exist.');
-
-		$host->enabled = ($host->enabled) ? 0 : 1;
-
-		$host->save();
-
-		return $host;
-
-	}
+	
 
 }

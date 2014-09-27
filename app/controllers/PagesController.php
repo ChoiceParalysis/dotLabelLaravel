@@ -6,7 +6,7 @@ class PagesController extends BaseController
 
 	/**
 	 * 
-	 * @return index
+	 * @return view
 	 */
 	public function index()
 	{

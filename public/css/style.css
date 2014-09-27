@@ -30,10 +30,6 @@ General styling
 	background: #C8F7C5;
 }
 
-.overflow-fix {
-	overflow: hidden;
-}
-
 .hosts {
 	float: left;
 }
@@ -68,4 +64,14 @@ body {
 
 .option-link {
 	cursor: pointer;
+}
+
+/*
+-------------------------------------------------------------------------------
+Helper classes
+-------------------------------------------------------------------------------
+*/
+
+.overflow-fix {
+	overflow: hidden;
 }

@@ -14,7 +14,10 @@ class NonExistentHostException extends Exception
 		$this->errors = $errors;
 	}
 
-
+	/**
+	 * Get errors from the exception
+	 * @return array Array containing errors
+	 */
 	public function getErrors()
 	{
 		return $this->errors;

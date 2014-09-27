@@ -6,6 +6,11 @@ use Exception;
 class DbHostsRepository implements HostsRepositoryInterface
 {
 
+	/**
+	 * Create a new host object in the database
+	 * @param  array $attributes 
+	 * @return object Object containing a new host values
+	 */
 	public function create($attributes)
 	{
 		return Host::create([
@@ -18,7 +23,12 @@ class DbHostsRepository implements HostsRepositoryInterface
 			]);
 	}
 
-
+	/**
+	 * Update a host in the database
+	 * @param  object $host    Original host object
+	 * @param  array $updates 
+	 * @return object          Object containing updated values
+	 */
 	public function update($host, $updates)
 	{
 		$host->ipaddress = $updates['ipaddress'];
@@ -31,28 +41,35 @@ class DbHostsRepository implements HostsRepositoryInterface
 		return $host;
 	}
 
-
+	/**
+	 * Delete a host from the database
+	 * @param  int $id 
+	 * @return bool 
+	 */
 	public function delete($id)
 	{
 		$host = Host::find($id);
 
-		if ($host)
-		{
-			return $host->delete();
-		}
-		
-		return false;
+		return ($host) ? $host->delete() : false;
 	}
 
-
-	public function all()
+	/**
+	 * Get all host objects from the database
+	 * @param  string $order ASC or DESC
+	 * @return collection        
+	 */
+	public function all($order = 'ASC')
 	{
-		$hosts = Host::orderBy('id', 'DESC')->get();
+		$hosts = Host::orderBy('id', $order)->get();
 		
 		return $hosts;
 	}
 
-
+	/**
+	 * 
+	 * @param  int $id 
+	 * @return object 
+	 */
 	public function find($id)
 	{
 		$host = Host::find($id);

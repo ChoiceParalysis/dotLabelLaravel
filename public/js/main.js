@@ -82,8 +82,7 @@ app.controller('HostsController', function($scope, $http)
 
 	/**
 	 * Update host's status
-	 * @param  {[type]} host [description]
-	 * @return {[type]}      [description]
+	 * @param  object host
 	 */
 	$scope.updateStatus = function(host) 
 	{
@@ -100,6 +99,7 @@ app.controller('HostsController', function($scope, $http)
 
 		$scope.updateHost(update);
 	};
+
 
 	/**
 	 * Post the updated values to the API
@@ -135,6 +135,7 @@ app.controller('HostsController', function($scope, $http)
 		});
 	};
 
+
 	/**
 	 * Delete a host from the hosts array
 	 * @param  object  host 
@@ -164,6 +165,7 @@ app.controller('HostsController', function($scope, $http)
 			});
 	};
 
+
 	/**
 	 * Reset the form displayed in the view
 	 */
@@ -173,6 +175,7 @@ app.controller('HostsController', function($scope, $http)
 		$scope.errors = {}; // Reset the errors
 		$scope.formValues = {};	// Reset the form's values
 	};	
+
 
 	/**
 	 * Update the host's list with a new host object

@@ -29,7 +29,7 @@ class HostsController extends ApiController {
 	 */
 	public function index()
 	{
-
+		// Fetch all hosts using the facade
 		$hosts = AuthorisedHosts::all();
 
 		return $this->respond([
@@ -44,6 +44,7 @@ class HostsController extends ApiController {
 	 */
 	public function show($id)
 	{
+		// Find a host using the facade
 		$host = AuthorisedHosts::find($id);
 
 		if (! $host)
@@ -67,6 +68,7 @@ class HostsController extends ApiController {
 	{	
 		try 
 		{
+			// Create a host using the facade
 			$host = AuthorisedHosts::create(Input::all());
 
 			return $this->respondCreated($this->transformer->transform($host), 'Host created successfully.');
@@ -89,6 +91,7 @@ class HostsController extends ApiController {
 	{
 		try 
 		{
+			// Update a host using the facade
 			$host = AuthorisedHosts::update($id, Input::all());
 
 			return $this->respondUpdated($this->transformer->transform($host));
