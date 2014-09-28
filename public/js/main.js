@@ -3,11 +3,13 @@
  */
 var app = angular.module("app", [])
 
+
 /**
  * Relative address to the API
  * @type string
  */
 var apiUrl = 'api/v1';
+
 
 /**
  * HostsController to handle the functionality of the app
@@ -17,8 +19,71 @@ var apiUrl = 'api/v1';
 app.controller('HostsController', function($scope, $http)
 {
 	/**
+	 * Function used for pagination
+	 * @param  { int } limit 
+	 * @return { array }
+	 */
+	$scope.range = function(limit)
+	{
+		return new Array(limit);
+	}
+
+	/**
+	 * Current page number
+	 * @type { int }
+	 */
+	$scope.page = 1;
+
+	/**
+	 * Load the page contents
+	 */
+	$scope.loadPage = function(pageNumber)
+	{
+
+		pageNumber = pageNumber ? pageNumber : $scope.page;
+
+		/**
+	     * Load hosts array using the API
+	     * @param  json Response from the server		
+	     */
+		$http.get(apiUrl + '/hosts?page=' + pageNumber)
+
+		.success(function(response)
+		{
+			$scope.data = response;
+			$scope.hosts = response.data;
+
+			$scope.formValues = {};
+		});
+	};
+
+	/**
+	 * Load previous page
+	 */
+	$scope.nextPage = function()
+	{
+		if ($scope.page< $scope.data.last_page)
+		{
+			$scope.page++;
+			$scope.loadPage();
+		}
+	};
+
+	/**
+	 * Load next page
+	 */
+	$scope.prevPage = function()
+	{
+		if ($scope.page > 1)
+		{
+			$scope.page--;
+			$scope.loadPage();
+		}
+	};
+
+	/**
 	 * Declaring available forms to use in the app
-	 * @type array
+	 * @type { array }
 	 */
 	$scope.forms = [ 
 		{ name: 'createForm', url: 'partials/_create.php'},
@@ -31,14 +96,18 @@ app.controller('HostsController', function($scope, $http)
     $scope.form = $scope.forms[0];
 
     /**
-     * Load hosts array using the API
-     * @param  json Response from the server		
+     * Declaring the hosts list template
+     * @type { object }
      */
-	$http.get(apiUrl + '/hosts').success(function(response)
-	{
-		$scope.hosts = response.data;
-		$scope.formValues = {};
-	});
+  	$scope.listings = {
+  		name: '_listings', url: 'partials/_listings.php'
+  	};
+
+  	/**
+  	 * Initial page load
+  	 */
+    $scope.loadPage();
+
 
 	/**
 	 * Add a new host to the system
@@ -50,11 +119,9 @@ app.controller('HostsController', function($scope, $http)
 		 */
 		$http.post(apiUrl + '/hosts', $scope.formValues)
 
-			.success(function(response)
+			.success(function()
 			{
-				host = response.data;
-				$scope.hosts.unshift(host); // add the new host to the beginning of the hosts array
-
+				$scope.loadPage();	
 				$scope.resetForm();
 			})
 
@@ -64,9 +131,10 @@ app.controller('HostsController', function($scope, $http)
 			});
 	};
 
+
 	/**
 	 * Show edit form and fill it with host's values
-	 * @param array host 
+	 * @param { array } host 
 	 */
 	$scope.showEditForm = function(host) 
 	{
@@ -80,9 +148,10 @@ app.controller('HostsController', function($scope, $http)
 		$scope.formValues = angular.copy(host); 
 	};
 
+
 	/**
 	 * Update host's status
-	 * @param  object host
+	 * @param { object } host
 	 */
 	$scope.updateStatus = function(host) 
 	{
@@ -103,7 +172,7 @@ app.controller('HostsController', function($scope, $http)
 
 	/**
 	 * Post the updated values to the API
-	 * @param  object host   Object containing new values of host object
+	 * @param  { object } host   Object containing new values of host object
 	 */
 	$scope.updateHost = function(host) 
 	{
@@ -111,7 +180,7 @@ app.controller('HostsController', function($scope, $http)
 		 * If no host object was provided as a parameter, create a new host object
 		 * with the current form values
 		 * 
-		 * @type object
+		 * @type { object }
 		 */
 		host = typeof host !== 'undefined' ? host : $scope.formValues;
 
@@ -125,8 +194,7 @@ app.controller('HostsController', function($scope, $http)
 		})
 
 		.success(function(response) {
-			updateHostList(response.data);
-
+			$scope.loadPage();
 			$scope.resetForm();
 		})
 
@@ -138,13 +206,13 @@ app.controller('HostsController', function($scope, $http)
 
 	/**
 	 * Delete a host from the hosts array
-	 * @param  object  host 
+	 * @param  { object }  host 
 	 */
 	$scope.deleteHost = function(host) 
 	{
 		/**
 		 * Find the possition of the host being deleted in hosts array
-		 * @type int
+		 * @type { int }
 		 */
 		var index = $scope.hosts.indexOf(host);
 
@@ -155,8 +223,7 @@ app.controller('HostsController', function($scope, $http)
 		
 			.success(function() 
 			{	
-				// Delete the host from the array
-				$scope.hosts.splice(index, 1);
+				$scope.loadPage();
 			})
 
 			.error(function(response)
@@ -175,25 +242,6 @@ app.controller('HostsController', function($scope, $http)
 		$scope.errors = {}; // Reset the errors
 		$scope.formValues = {};	// Reset the form's values
 	};	
-
-
-	/**
-	 * Update the host's list with a new host object
-	 * @param  {object} update   Updated host object
-	 */
-	updateHostList = function(update) 
-	{	
-		// Iterate through every item in hosts array
-		for (var i = 0; i < $scope.hosts.length; i++)
-		{
-			// If the ID's of update and the host maches,
-			if ($scope.hosts[i].id == update.id)
-			{
-				// update the values of the host object
-				$scope.hosts[i] = update;
-			}
-		}
-	};
 
 });
 

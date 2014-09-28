@@ -58,10 +58,11 @@ class DbHostsRepository implements HostsRepositoryInterface
 	 * @param  string $order ASC or DESC
 	 * @return collection        
 	 */
-	public function all($order = 'ASC')
+	public function all($order = 'DESC', $limit = 5)
 	{
-		$hosts = Host::orderBy('id', $order)->get();
 		
+		$hosts = Host::orderBy('id', $order)->paginate($limit);
+
 		return $hosts;
 	}
 

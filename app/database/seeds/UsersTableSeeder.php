@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder
 
 		User::create([
 
-			'email' => 'john@doe.com',
+			'email' => 'admin@dotlabel.co.uk',
 			'password' => '1234'
 
 		]);

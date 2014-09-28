@@ -44,6 +44,8 @@ textarea {
 	min-height: 120px;
 }
 
+
+
 /*
 -------------------------------------------------------------------------------
 Typography
@@ -62,7 +64,7 @@ body {
 	color: #CF000F;
 }
 
-.option-link {
+.link {
 	cursor: pointer;
 }
 
@@ -74,4 +76,18 @@ Helper classes
 
 .overflow-fix {
 	overflow: hidden;
+}
+
+
+/*
+-------------------------------------------------------------------------------
+Notifications
+-------------------------------------------------------------------------------
+*/
+
+.alert {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	display: none;
 }

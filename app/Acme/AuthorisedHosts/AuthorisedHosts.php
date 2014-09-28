@@ -25,9 +25,9 @@ class AuthorisedHosts
 	 * @param  string $order Order of collection to be retrieved
 	 * @return collection host objects
 	 */
-	public function all()
+	public function all($order, $limit)
 	{
-		return $this->hostsRepository->all();
+		return $this->hostsRepository->all($order, $limit);
 	}
 
 	/**

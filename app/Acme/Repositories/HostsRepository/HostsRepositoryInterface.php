@@ -28,7 +28,7 @@ interface HostsRepositoryInterface
 	/**
 	 * Return all items from the repository
 	 */
-	public function all();
+	public function all($order, $limit);
 
 
 	/**

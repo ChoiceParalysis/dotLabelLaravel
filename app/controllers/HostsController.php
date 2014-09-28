@@ -30,7 +30,9 @@ class HostsController extends ApiController {
 	public function index()
 	{
 		// Fetch all hosts using the facade
-		$hosts = AuthorisedHosts::all();
+		$hosts = AuthorisedHosts::all('DESC', 5);
+
+		return $hosts;
 
 		return $this->respond([
 			'data' => $this->transformer->transformCollection($hosts->toArray())
