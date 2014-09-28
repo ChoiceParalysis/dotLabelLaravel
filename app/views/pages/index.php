@@ -2,7 +2,7 @@
 <html lang="en" ng-app="app">
 <head>
 	<meta charset="UTF-8">
-	<!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'> -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/style.css">
 	<title>dotLabel Authorised Hosts app</title>
@@ -29,6 +29,7 @@
 
 <script type="text/javascript" src="/js/angular.min.js"></script>
 <script type="text/javascript" src="js/angular-route.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>

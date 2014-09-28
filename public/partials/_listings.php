@@ -7,7 +7,7 @@
 		</div><!-- end overflow-fix -->
 		
 		<ul class="list-group">
-			<li  class="list-group-item" ng-repeat="host in hosts | filter:search" data-enabled="{{ host.enabled }}">
+			<li  class="host-item list-group-item link" ng-repeat="host in hosts | filter:search" data-enabled="{{ host.enabled }}">
 				{{ host.ipaddress }} / {{ host.subnet }}
 
 				<ul class="options">
@@ -26,6 +26,10 @@
 						<a class="link" ng-click="deleteHost(host)">Delete</a>
 					</li><!-- end options-item -->
 				</ul><!-- end options -->
+
+				<div class="description">
+					{{ host.description }}
+				</div><!-- end description -->
 			</li><!-- end list-group-item -->
 		</ul><!-- end list-group -->
 
@@ -33,8 +37,8 @@
 			<li><a class="link" ng-click="prevPage()">&laquo;</a></li>
 
 			<li ng-repeat="n in range(data.last_page) track by $index">
-				<a class="link" ng-click="loadPage($index + 1)">{{ $index + 1 }}</a>
+				<a class="link"  ng-click="loadPage($index + 1)">{{ $index + 1 }}</a>
 			</li>
 
-			<li><a ng-click="nextPage()">&raquo;</a></li>
+			<li><a class="link" ng-click="nextPage()">&raquo;</a></li>
 		</ul>

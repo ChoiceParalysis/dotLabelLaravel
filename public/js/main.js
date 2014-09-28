@@ -40,13 +40,13 @@ app.controller('HostsController', function($scope, $http)
 	$scope.loadPage = function(pageNumber)
 	{
 
-		pageNumber = pageNumber ? pageNumber : $scope.page;
+		$scope.page = pageNumber ? pageNumber : $scope.page;
 
 		/**
 	     * Load hosts array using the API
 	     * @param  json Response from the server		
 	     */
-		$http.get(apiUrl + '/hosts?page=' + pageNumber)
+		$http.get(apiUrl + '/hosts?page=' + $scope.page)
 
 		.success(function(response)
 		{

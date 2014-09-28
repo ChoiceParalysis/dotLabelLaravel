@@ -11,7 +11,7 @@ class AuthorisedHostTableSeeder extends Seeder
 
 		$faker = Factory::create();
 
-		foreach(range(1, 10) as $host)
+		foreach(range(1, 40) as $host)
 		{
 			Host::create([
 				'ipaddress' => $faker->ipv4,

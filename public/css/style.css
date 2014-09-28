@@ -34,6 +34,10 @@ General styling
 	float: left;
 }
 
+.description {
+	display: none;
+}
+
 #search {
 	float: right;
 	width: 150px;
