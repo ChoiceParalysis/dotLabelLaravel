@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/style.css">
 	<title>dotLabel Authorised Hosts app</title>
 </head>
@@ -27,9 +27,8 @@
 </div><!-- end container -->
 
 
-<script type="text/javascript" src="/js/angular.min.js"></script>
-<script type="text/javascript" src="js/angular-route.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.2.25/angular-route.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>

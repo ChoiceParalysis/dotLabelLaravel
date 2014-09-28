@@ -7,7 +7,7 @@
 		</div><!-- end overflow-fix -->
 		
 		<ul class="list-group">
-			<li  class="host-item list-group-item link" ng-repeat="host in hosts | filter:search" data-enabled="{{ host.enabled }}">
+			<li  class="list-group-item link" ng-repeat="host in hosts | filter:search" data-enabled="{{ host.enabled }}">
 				{{ host.ipaddress }} / {{ host.subnet }}
 
 				<ul class="options">
